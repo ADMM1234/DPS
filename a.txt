@@ -1,0 +1,191 @@
+[cloudera@quickstart ~]$ hbase shell
+2022-05-15 12:36:17,473 INFO  [main] Configuration.deprecation: hadoop.native.lib is deprecated. Instead, use io.native.lib.available
+HBase Shell; enter 'help<RETURN>' for list of supported commands.
+Type "exit<RETURN>" to leave the HBase Shell
+Version 1.0.0-cdh5.4.2, rUnknown, Tue May 19 17:07:29 PDT 2015
+
+hbase(main):001:0> create 'zb','zbinfo','zbsch';
+hbase(main):002:0* list
+0 row(s) in 0.6460 seconds
+
+TABLE                                                                                                                                  
+emphive                                                                                                                                
+flight                                                                                                                                 
+flight1                                                                                                                                
+flightfinfo                                                                                                                            
+flighti                                                                                                                                
+zb                                                                                                                                     
+6 row(s) in 0.0250 seconds
+
+=> ["emphive", "flight", "flight1", "flightfinfo", "flighti", "zb"]
+hbase(main):003:0> put "zb",1,"zbinfo:source","Pune";
+hbase(main):004:0* put "zb",1,"zbinfo:dest","mumbai";
+hbase(main):005:0* put "zb",1,"zbsch:at","8:30pm";
+hbase(main):006:0* put "zb",1,"zbsch:dt","9:30pm";
+hbase(main):007:0* put "zb",1,"zbsch:delay_in_min",5;
+hbase(main):008:0* put "zb",2,"zbinfo:source","Tune";
+hbase(main):009:0* put "zb",2,"zbinfo:dest","cumbai";
+hbase(main):010:0* put "zb",2,"zbsch:at","9:30pm";
+hbase(main):011:0* put "zb",2,"zbsch:dt","10:30pm";
+hbase(main):012:0* put "zb",2,"zbsch:delay_in_min",10;
+hbase(main):013:0* scan 'zb'
+0 row(s) in 0.2370 seconds
+
+0 row(s) in 0.0140 seconds
+
+0 row(s) in 0.0050 seconds
+
+0 row(s) in 0.0190 seconds
+
+0 row(s) in 0.0060 seconds
+
+0 row(s) in 0.0110 seconds
+
+0 row(s) in 0.0050 seconds
+
+0 row(s) in 0.0080 seconds
+
+0 row(s) in 0.0060 seconds
+
+0 row(s) in 0.0150 seconds
+
+ROW                                COLUMN+CELL                                                                                         
+ 1                                 column=zbinfo:dest, timestamp=1652643702457, value=mumbai                                           
+ 1                                 column=zbinfo:source, timestamp=1652643702435, value=Pune                                           
+ 1                                 column=zbsch:at, timestamp=1652643702471, value=8:30pm                                              
+ 1                                 column=zbsch:delay_in_min, timestamp=1652643702499, value=5                                         
+ 1                                 column=zbsch:dt, timestamp=1652643702489, value=9:30pm                                              
+ 2                                 column=zbinfo:dest, timestamp=1652643702516, value=cumbai                                           
+ 2                                 column=zbinfo:source, timestamp=1652643702505, value=Tune                                           
+ 2                                 column=zbsch:at, timestamp=1652643702525, value=9:30pm                                              
+ 2                                 column=zbsch:delay_in_min, timestamp=1652643702547, value=10                                        
+ 2                                 column=zbsch:dt, timestamp=1652643702532, value=10:30pm                                             
+2 row(s) in 0.0540 seconds
+
+hbase(main):014:0> alter 'zb',NAME=>"Revenue";
+hbase(main):015:0* put "zb",1,"Revenue:rs",10000;
+hbase(main):016:0* put "zb",2,"Revenue:rs",100000;
+hbase(main):017:0* scan 'zb'
+Updating all regions with the new schema...
+0/1 regions updated.
+1/1 regions updated.
+Done.
+0 row(s) in 2.3150 seconds
+
+0 row(s) in 0.0110 seconds
+
+0 row(s) in 0.0090 seconds
+
+ROW                                COLUMN+CELL                                                                                         
+ 1                                 column=Revenue:rs, timestamp=1652643784236, value=10000                                             
+ 1                                 column=zbinfo:dest, timestamp=1652643702457, value=mumbai                                           
+ 1                                 column=zbinfo:source, timestamp=1652643702435, value=Pune                                           
+ 1                                 column=zbsch:at, timestamp=1652643702471, value=8:30pm                                              
+ 1                                 column=zbsch:delay_in_min, timestamp=1652643702499, value=5                                         
+ 1                                 column=zbsch:dt, timestamp=1652643702489, value=9:30pm                                              
+ 2                                 column=Revenue:rs, timestamp=1652643784249, value=100000                                            
+ 2                                 column=zbinfo:dest, timestamp=1652643702516, value=cumbai                                           
+ 2                                 column=zbinfo:source, timestamp=1652643702505, value=Tune                                           
+ 2                                 column=zbsch:at, timestamp=1652643702525, value=9:30pm                                              
+ 2                                 column=zbsch:delay_in_min, timestamp=1652643702547, value=10                                        
+ 2                                 column=zbsch:dt, timestamp=1652643702532, value=10:30pm                                             
+2 row(s) in 0.1230 seconds
+
+hbase(main):018:0> list
+TABLE                                                                                                                                  
+emphive                                                                                                                                
+flight                                                                                                                                 
+flight1                                                                                                                                
+flightfinfo                                                                                                                            
+flighti                                                                                                                                
+zb                                                                                                                                     
+6 row(s) in 0.0300 seconds
+
+=> ["emphive", "flight", "flight1", "flightfinfo", "flighti", "zb"]
+hbase(main):019:0> disable 'emphive';
+hbase(main):020:0* drop 'emphive';
+hbase(main):021:0* list
+0 row(s) in 1.3690 seconds
+
+0 row(s) in 0.3130 seconds
+
+TABLE                                                                                                                                  
+flight                                                                                                                                 
+flight1                                                                                                                                
+flightfinfo                                                                                                                            
+flighti                                                                                                                                
+zb                                                                                                                                     
+5 row(s) in 0.0130 seconds
+
+=> ["flight", "flight1", "flightfinfo", "flighti", "zb"]
+hbase(main):022:0> 
+
+
+
+Hive
+
+
+
+hive> create external table ZB_hive(id int,source string,dest string,at string,dt string,delay int,revenue int) 
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > WITH SERDEPROPERTIES("hbase.columns.mapping"=":key,zbinfo:source,zbinfo:dest,zbsch:at,zbsch:dt,zbsch:delay_in_min,Revenue:rs")
+    > TBLPROPERTIES("hbase.table.name"="zb");
+OK
+Time taken: 2.353 seconds
+hive> select * from ZB_hive;
+OK
+1	Pune	mumbai	8:30pm	9:30pm	5	10000
+2	Tune	cumbai	9:30pm	10:30pm	10	100000
+Time taken: 1.27 seconds, Fetched: 2 row(s)
+hive> select sum(delay) from ZB_hive;
+Query ID = cloudera_20220515125353_4ec7762f-1c73-47be-a286-adfd4c43e879
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1652639057892_0002, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1652639057892_0002/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1652639057892_0002
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2022-05-15 12:54:15,004 Stage-1 map = 0%,  reduce = 0%
+2022-05-15 12:54:31,346 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.36 sec
+2022-05-15 12:54:47,763 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 5.15 sec
+MapReduce Total cumulative CPU time: 5 seconds 150 msec
+Ended Job = job_1652639057892_0002
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 5.15 sec   HDFS Read: 7352 HDFS Write: 3 SUCCESS
+Total MapReduce CPU Time Spent: 5 seconds 150 msec
+OK
+15
+Time taken: 56.89 seconds, Fetched: 1 row(s)
+hive> select avg(delay) from ZB_hive;
+Query ID = cloudera_20220515125555_3268f472-9c54-4833-9b8a-b0bd6a4e6282
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1652639057892_0003, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1652639057892_0003/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1652639057892_0003
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2022-05-15 12:55:20,223 Stage-1 map = 0%,  reduce = 0%
+2022-05-15 12:55:35,023 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.07 sec
+2022-05-15 12:55:49,924 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 4.75 sec
+MapReduce Total cumulative CPU time: 4 seconds 750 msec
+Ended Job = job_1652639057892_0003
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 4.75 sec   HDFS Read: 7798 HDFS Write: 4 SUCCESS
+Total MapReduce CPU Time Spent: 4 seconds 750 msec
+OK
+7.5
+Time taken: 49.83 seconds, Fetched: 1 row(s)
+hive> 
+
